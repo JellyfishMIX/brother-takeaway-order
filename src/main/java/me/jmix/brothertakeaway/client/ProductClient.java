@@ -1,7 +1,12 @@
 package me.jmix.brothertakeaway.client;
 
+import me.jmix.brothertakeaway.entity.ProductInfo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.List;
 
 /**
  * @author JellyfishMIX
@@ -12,4 +17,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 public interface ProductClient {
     @GetMapping("/brother-takeaway-product/server/message")
     String productMsg();
+
+    /**
+     * 获取商品列表（给订单服务使用）
+     *
+     * @param productInfoList productInfoList
+     * @return
+     */
+    @PostMapping("/brother-takeaway-product/product/list-for-order")
+    List<ProductInfo> listForProduct(@RequestBody List<String> productInfoList);
 }
