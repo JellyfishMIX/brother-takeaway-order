@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import me.jmix.brothertakeaway.client.ProductClient;
+import me.jmix.brothertakeaway.dto.CartDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
@@ -57,5 +58,13 @@ public class ClientController {
     public String listForProduct() throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.writeValueAsString(productClient.listForProduct(Arrays.asList("123456", "123458")));
+    }
+
+    @GetMapping("/decrease-stock")
+    public String decreaseStock() {
+        CartDTO cartDTO1 = new CartDTO("123456", 2);
+        CartDTO cartDTO2 = new CartDTO("123457", 2);
+        productClient.decreaseStock(Arrays.asList(cartDTO1, cartDTO2));
+        return "ok";
     }
 }

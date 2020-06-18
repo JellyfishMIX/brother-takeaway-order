@@ -1,5 +1,6 @@
 package me.jmix.brothertakeaway.client;
 
+import me.jmix.brothertakeaway.dto.CartDTO;
 import me.jmix.brothertakeaway.entity.ProductInfo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,4 +27,12 @@ public interface ProductClient {
      */
     @PostMapping("/brother-takeaway-product/product/list-for-order")
     List<ProductInfo> listForProduct(@RequestBody List<String> productInfoList);
+
+    /**
+     * 扣库存
+     *
+     * @param cartDTOList cartDTOList
+     */
+    @PostMapping("/brother-takeaway-product/product/decrease-stock")
+    void decreaseStock(@RequestBody List<CartDTO> cartDTOList);
 }
