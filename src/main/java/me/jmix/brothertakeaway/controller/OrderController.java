@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -23,6 +24,7 @@ import java.util.Map;
  * @date 2020/6/5 5:11 下午
  */
 @Slf4j
+@RestController
 public class OrderController {
     @Autowired
     private OrderService orderService;
