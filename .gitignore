@@ -31,4 +31,5 @@ build/
 .vscode/
 
 ### conf ###
-/server/src/main/resources/application.yml
+/serverd/src/main/resources/application.yml
+/server/src/main/resources/bootstrap.yml

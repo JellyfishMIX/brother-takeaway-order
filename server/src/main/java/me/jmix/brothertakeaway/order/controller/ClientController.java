@@ -68,4 +68,5 @@ public class ClientController {
         productClient.decreaseStock(Arrays.asList(cartVO1, cartVO2));
         return "ok";
     }
+
 }
