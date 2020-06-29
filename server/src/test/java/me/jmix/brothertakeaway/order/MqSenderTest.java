@@ -1,5 +1,6 @@
 package me.jmix.brothertakeaway.order;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,14 @@ public class MqSenderTest extends BrotherTakeawayOrderApplicationTests {
     private AmqpTemplate amqpTemplate;
 
     @Test
+    @Disabled
     void send() {
         System.out.println("--- test begin");
         amqpTemplate.convertAndSend("myQueue", "now: " + new Date());
     }
 
     @Test
+    @Disabled
     void sendOrder() {
         amqpTemplate.convertAndSend("myOrder", "computer", "now: " + new Date());
     }
