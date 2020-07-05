@@ -21,12 +21,14 @@ public class MqSenderTest extends BrotherTakeawayOrderApplicationTests {
     @Disabled
     void send() {
         System.out.println("--- test begin");
+        // 第一个参数：exchange，第二个参数message
         amqpTemplate.convertAndSend("myQueue", "now: " + new Date());
     }
 
     @Test
     @Disabled
     void sendOrder() {
+        // 第一个参数：exchange，第二个参数：routingKey，第三个参数：message
         amqpTemplate.convertAndSend("myOrder", "computer", "now: " + new Date());
     }
 }

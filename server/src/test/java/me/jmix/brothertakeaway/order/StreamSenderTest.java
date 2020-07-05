@@ -20,14 +20,14 @@ public class StreamSenderTest extends BrotherTakeawayOrderApplicationTests {
     private StreamClient streamClient;
 
     @Test
-    // @Disabled
+    @Disabled
     void sendMessage() {
         String message = "now: " + new Date();
         streamClient.output().send(MessageBuilder.withPayload(message).build());
     }
 
     @Test
-    // @Disabled
+    @Disabled
     void sendObject() {
         OrderDTO orderDTO = new OrderDTO();
         orderDTO.setOrderId("123456");

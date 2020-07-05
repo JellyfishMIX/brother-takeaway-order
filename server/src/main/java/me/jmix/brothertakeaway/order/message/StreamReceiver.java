@@ -28,7 +28,7 @@ public class StreamReceiver {
     // }
 
     /**
-     * 监听OrderDTO信息
+     * 监听OrderDTO信息，并使用@SendTo给出反馈
      *
      * @param message message
      * @return
