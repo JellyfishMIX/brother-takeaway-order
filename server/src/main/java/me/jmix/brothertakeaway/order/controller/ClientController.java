@@ -24,6 +24,7 @@ import java.util.Arrays;
 @RequestMapping("/client")
 @Slf4j
 public class ClientController {
+
     // 2. 第二种方式，使用LoadBalancerClient
     @Autowired
     private LoadBalancerClient loadBalancerClient;
