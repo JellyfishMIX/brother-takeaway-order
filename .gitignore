@@ -32,4 +32,3 @@ build/
 
 ### conf ###
 /serverd/src/main/resources/application.yml
-/server/src/main/resources/bootstrap.yml
