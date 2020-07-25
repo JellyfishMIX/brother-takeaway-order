@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -25,6 +27,7 @@ import java.util.Map;
  */
 @Slf4j
 @RestController
+@RequestMapping("/order")
 public class OrderController {
     @Autowired
     private OrderService orderService;
@@ -47,5 +50,15 @@ public class OrderController {
         map.put("orderId", orderDTOResult.getOrderId());
 
         return ResultVOUtil.success(map);
+    }
+
+    /**
+     * 完结订单（只能卖家端操作）
+     *
+     * @return
+     */
+    @PostMapping("/finish")
+    public ResultVO finish(@RequestParam("orderId") String orderId) {
+        return ResultVOUtil.success(orderService.finish(orderId));
     }
 }
