@@ -24,10 +24,24 @@ public class HystrixController {
     }
 
     @HystrixCommand(commandProperties = {
+            // 超时时间
             @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "3000")
     })
     @GetMapping("/product-list2")
     public String getProductInfoList2() {
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject("http://localhost:8082/product/list", String.class);
+    }
+
+    @HystrixCommand(commandProperties = {
+            // 开启熔断
+            @HystrixProperty(name = "circuitBreaker.enable", value = "true"),
+            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "true"),
+            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "true"),
+            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "true")
+    })
+    @GetMapping("/product-list3")
+    public String getProductInfoList3() {
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject("http://localhost:8082/product/list", String.class);
     }
