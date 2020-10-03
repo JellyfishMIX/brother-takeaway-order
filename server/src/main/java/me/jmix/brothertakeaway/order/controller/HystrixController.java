@@ -50,12 +50,12 @@ public class HystrixController {
     @HystrixCommand(commandProperties = {
             // 开启熔断
             @HystrixProperty(name = "circuitBreaker.enable", value = "true"),
-            // 滚动时间窗口中，断路器的最小请求数
-            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "true"),
+            // 滚动时间窗口中，断路器的进行统计的最小请求数
+            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "10"),
             // 休眠时间窗到期时间
-            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "true"),
+            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000"),
             // 滚动时间窗口中，断路器打开的错误百分比条件
-            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "true")
+            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "60")
     })
     @GetMapping("/product-list4")
     public String getProductInfoList4() {
