@@ -14,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
  */
 @RequestMapping("/hystrix")
 @RestController
-@DefaultProperties
+@DefaultProperties(defaultFallback = "/defaultFallback")
 public class HystrixController {
     @HystrixCommand(fallbackMethod = "fallback")
     @GetMapping("/product-list")
@@ -23,10 +23,14 @@ public class HystrixController {
         return restTemplate.getForObject("http://localhost:8082/product/list", String.class);
     }
 
-    @HystrixCommand(commandProperties = {
-            // 超时时间
-            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "3000")
-    })
+    /**
+     * Only add @HystrixCommand annotation.
+     * When the service degradation is triggered,
+     * the defaultFallback method specified in the @DefaultProperties annotation of the class of the method is called.
+     * 只添加@HystrixCommand注解，触发服务降级时会调用所处类的@DefaultProperties注解中指定的defaultFallback方法
+     * @return
+     */
+    @HystrixCommand
     @GetMapping("/product-list2")
     public String getProductInfoList2() {
         RestTemplate restTemplate = new RestTemplate();
@@ -34,14 +38,27 @@ public class HystrixController {
     }
 
     @HystrixCommand(commandProperties = {
-            // 开启熔断
-            @HystrixProperty(name = "circuitBreaker.enable", value = "true"),
-            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "true"),
-            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "true"),
-            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "true")
+            // 超时时间
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "3000")
     })
     @GetMapping("/product-list3")
     public String getProductInfoList3() {
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject("http://localhost:8082/product/list", String.class);
+    }
+
+    @HystrixCommand(commandProperties = {
+            // 开启熔断
+            @HystrixProperty(name = "circuitBreaker.enable", value = "true"),
+            // 滚动时间窗口中，断路器的最小请求数
+            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "true"),
+            // 休眠时间窗到期时间
+            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "true"),
+            // 滚动时间窗口中，断路器打开的错误百分比条件
+            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "true")
+    })
+    @GetMapping("/product-list4")
+    public String getProductInfoList4() {
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject("http://localhost:8082/product/list", String.class);
     }
