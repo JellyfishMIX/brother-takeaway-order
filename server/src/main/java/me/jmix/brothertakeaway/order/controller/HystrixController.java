@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 /**
+ * the attributes of the @HystrixCommand can be set in bootstrap.yml
+ * @HystrixCommand 中的属性也可以在bootstrap.yml中设置
+ *
  * @author JellyfishMIX
  * @date 2020/7/26 22:38
  */
@@ -16,6 +19,11 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 @DefaultProperties(defaultFallback = "/defaultFallback")
 public class HystrixController {
+    /**
+     * You can set a separate timeout for this method in bootstrap.yml
+     * 可以在bootstrap.yml中为此方法单独设置一个超时时间
+     * @return
+     */
     @HystrixCommand(fallbackMethod = "fallback")
     @GetMapping("/product-list")
     public String getProductInfoList() {
