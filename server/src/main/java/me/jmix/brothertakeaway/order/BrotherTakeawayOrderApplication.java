@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @EnableFeignClients(basePackages = "me.jmix.brothertakeaway.product.client")
@@ -13,6 +14,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 // @EnableCircuitBreaker
 // 以上三个注解已包含在@SpringCloudApplication中
 @SpringCloudApplication
+@EnableHystrixDashboard
 public class BrotherTakeawayOrderApplication {
 
     public static void main(String[] args) {
