@@ -15,9 +15,9 @@ import org.springframework.web.client.RestTemplate;
  * @author JellyfishMIX
  * @date 2020/7/26 22:38
  */
-@RequestMapping("/hystrix")
+@RequestMapping("/hystrix-api")
 @RestController
-@DefaultProperties(defaultFallback = "/defaultFallback")
+@DefaultProperties(defaultFallback = "defaultFallback")
 public class HystrixController {
     /**
      * You can set a separate timeout for this method in bootstrap.yml
@@ -57,7 +57,7 @@ public class HystrixController {
 
     @HystrixCommand(commandProperties = {
             // 开启熔断
-            @HystrixProperty(name = "circuitBreaker.enable", value = "true"),
+            @HystrixProperty(name = "circuitBreaker.enabled", value = "true"),
             // 滚动时间窗口中，断路器的进行统计的最小请求数
             @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "10"),
             // 休眠时间窗到期时间
