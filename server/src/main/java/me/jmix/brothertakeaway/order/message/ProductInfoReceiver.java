@@ -24,13 +24,19 @@ public class ProductInfoReceiver {
 
     private static final String PRODUCT_STOCK_TEMPLATE = "product-stock-%s";
 
+    /**
+     * RabbitListener example
+     * Note: If the service is started locally, the redis port of ECS may be closed to the local machine, causing an exception.
+     *
+     * @param message message from rabbit
+     */
     @RabbitListener(queuesToDeclare = @Queue("productInfo"))
     public void process(String message) {
         // message => ProductInfo
         List<ProductInfo> productInfoList = (List<ProductInfo>) JsonUtil.fromJson(message, new TypeReference<List<ProductInfo>>() {});
         log.info("从队列【{}】接收到消息: {}", "productInfoList", productInfoList);
 
-        // 存到redis中
+        // Save to redis. Note: If the service is started locally, the redis port of ECS may be closed to the local machine, causing an exception.
         for (ProductInfo productInfo : productInfoList) {
             String key = String.format(PRODUCT_STOCK_TEMPLATE, String.valueOf(productInfo.getProductId()));
             String value = String.valueOf(productInfo.getProductStock());
